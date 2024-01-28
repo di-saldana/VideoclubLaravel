@@ -13,7 +13,20 @@
         @extends('layouts.master')
 
         <!-- @section('content') -->
-            Catalog
+        <div class="row">
+          @foreach( $arrayPeliculas as $key => $pelicula )
+          <div class="col-xs-6 col-sm-4 col-md-3 text-center">
+
+              <a href="{{ url('/catalog/show/' . $key ) }}">
+                  <img src="{{$pelicula['poster']}}" style="height:200px"/>
+                  <h4 style="min-height:45px;margin:5px 0 10px 0">
+                      {{$pelicula['title']}}
+                  </h4>
+              </a>
+          </div>
+          @endforeach
+        </div>
+
         @endsection
     </div>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous"></script>
