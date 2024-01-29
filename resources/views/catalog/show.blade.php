@@ -15,18 +15,18 @@
         <!-- @section('content') -->
         <div class="row">
           <div class="col-sm-3">
-              <img src="{{$pelicula['poster']}}" style="height:400px"/>
+              <img src="{{$pelicula->poster}}" style="height:400px"/>
           </div>
 
           <div class="col-sm-8">
               <h2 style="min-height:45px;margin:5px 0 10px 0">
-                  {{$pelicula['title']}}
+                  {{$pelicula->title}}
               </h2>
-              <paragraph><b>Año:</b> {{$pelicula['year']}}<br></paragraph>
-              <paragraph><b>Director:</b> {{$pelicula['director']}}<br><br></paragraph>
-              <paragraph><b>Resumen:</b> {{$pelicula['synopsis']}}<br><br></paragraph>
+              <paragraph><b>Año:</b> {{$pelicula->year}}<br></paragraph>
+              <paragraph><b>Director:</b> {{$pelicula->director}}<br><br></paragraph>
+              <paragraph><b>Resumen:</b> {{$pelicula->synopsis}}<br><br></paragraph>
 
-              @if($pelicula['rented'])
+              @if($pelicula->rented)
                 <paragraph><b>Estado:</b> Película actualmente alquilada<br><br></paragraph>
                 <button type="button" class="btn btn-danger">Devolver película</button>
               
@@ -35,12 +35,12 @@
                 <button type="button" class="btn btn-primary">Alquilar película</button>
 
               @endif
-              <button type="button" class="btn btn-warning">
+              <a href="{{ url('/catalog/edit/' . $pelicula->id ) }}" class="btn btn-warning">
                 <i class="bi bi-pencil"></i>Editar película
-              </button>
-              <button type="button" class="btn btn-light">
+              </a>
+              <a href="{{ url('/catalog') }}" class="btn btn-light">
                 <i class="fas fa-arrow-left"></i>Volver al listado
-              </button>
+              </a>
           </div>
         </div>
         @endsection
