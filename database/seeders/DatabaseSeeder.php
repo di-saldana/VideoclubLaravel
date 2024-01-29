@@ -5,11 +5,11 @@ namespace Database\Seeders;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\Movie;
+use App\Models\User;
 use Illuminate\Support\Facades\DB;
 
 class DatabaseSeeder extends Seeder
 {
-
     private $arrayPeliculas = array(
 		array(
 			'title' => 'El padrino',
@@ -173,11 +173,95 @@ class DatabaseSeeder extends Seeder
 		)
     );
 
+	private $arrayUsers = array(
+		array(
+			'name' => 'Dianelys Saldana',
+			'email' => 'dsl42@alu.ua.es',
+			'password' => '1234',
+		),
+		array(
+			'name' => 'John Doe',
+			'email' => 'john.doe@example.com',
+			'password' => 'password1',
+		),
+		array(
+			'name' => 'Jane Smith',
+			'email' => 'jane.smith@example.com',
+			'password' => 'password2',
+		),
+		array(
+			'name' => 'Michael Johnson',
+			'email' => 'michael.johnson@example.com',
+			'password' => 'password3',
+		),
+		array(
+			'name' => 'Emily Davis',
+			'email' => 'emily.davis@example.com',
+			'password' => 'password4',
+		),
+		array(
+			'name' => 'William Wilson',
+			'email' => 'william.wilson@example.com',
+			'password' => 'password5',
+		),
+		array(
+			'name' => 'Olivia Harris',
+			'email' => 'olivia.harris@example.com',
+			'password' => 'password6',
+		),
+		array(
+			'name' => 'Liam Thomas',
+			'email' => 'liam.thomas@example.com',
+			'password' => 'password7',
+		),
+		array(
+			'name' => 'Ava Moore',
+			'email' => 'ava.moore@example.com',
+			'password' => 'password8',
+		),
+		array(
+			'name' => 'Noah Jackson',
+			'email' => 'noah.jackson@example.com',
+			'password' => 'password9',
+		),
+		array(
+			'name' => 'Emma White',
+			'email' => 'emma.white@example.com',
+			'password' => 'password10',
+		),
+		array(
+			'name' => 'Sophia Martin',
+			'email' => 'sophia.martin@example.com',
+			'password' => 'password11',
+		),
+		array(
+			'name' => 'James Taylor',
+			'email' => 'james.taylor@example.com',
+			'password' => 'password12',
+		),
+		array(
+			'name' => 'Isabella Anderson',
+			'email' => 'isabella.anderson@example.com',
+			'password' => 'password13',
+		),
+		array(
+			'name' => 'Ethan Moore',
+			'email' => 'ethan.moore@example.com',
+			'password' => 'password14',
+		),
+		array(
+			'name' => 'Amelia Thomas',
+			'email' => 'amelia.thomas@example.com',
+			'password' => 'password15',
+		),
+	);	
+
     /**
      * Seed the application's database.
      */
     public function run() {
         self::seedCatalog();
+		self::seedUsers();
         $this->command->info('Tabla catálogo inicializada con datos!');
     }
 
@@ -195,4 +279,16 @@ class DatabaseSeeder extends Seeder
             $p->save();
         }
     }
+
+	public function seedUsers() {
+		DB::table('users')->delete();
+
+		foreach( $this->arrayUsers as $user ) {
+            $u = new User;
+            $u->name = $user['name'];
+			$u->email = $user['email'];
+			$u->password = bcrypt($user['password']);
+            $u->save();
+        }
+	}
 }
