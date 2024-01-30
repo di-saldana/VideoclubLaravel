@@ -28,17 +28,40 @@
 
               @if($pelicula->rented)
                 <paragraph><b>Estado:</b> Película actualmente alquilada<br><br></paragraph>
-                <button type="button" class="btn btn-danger">Devolver película</button>
+                <form action="{{action([App\Http\Controllers\CatalogController::class, 'putReturn'], ['id' => $pelicula->id])}}" 
+                  method="POST" style="display:inline">
+                  @method('PUT')
+                  @csrf
+                  <button type="submit" class="btn btn-danger" style="display:inline">
+                      Devolver película
+                  </button>
+                </form>
               
               @else
                 <paragraph><b>Estado:</b> Película disponible<br><br></paragraph>
-                <button type="button" class="btn btn-primary">Alquilar película</button>
+                <form action="{{action([App\Http\Controllers\CatalogController::class, 'putRent'], ['id' => $pelicula->id])}}" 
+                  method="POST" style="display:inline">
+                  @method('PUT')
+                  @csrf
+                  <button type="submit" class="btn btn-primary" style="display:inline">
+                    Alquilar película
+                  </button>
+                </form>
 
               @endif
-              <a href="{{ url('/catalog/edit/' . $pelicula->id ) }}" class="btn btn-warning">
+              <a href="{{ url('/catalog/edit/' . $pelicula->id ) }}" type="button" class="btn btn-warning">
                 <i class="bi bi-pencil"></i>Editar película
               </a>
-              <a href="{{ url('/catalog') }}" class="btn btn-light">
+              <form action="{{action([App\Http\Controllers\CatalogController::class, 'deleteMovie'], ['id' => $pelicula->id])}}" 
+                  method="POST" style="display:inline">
+                  @method('DELETE')
+                  @csrf
+                  <button type="submit" class="btn btn-dark" style="display:inline">
+                    <i class="bi bi-trash"></i>Eliminar película
+                  </button>
+                </form>
+
+              <a href="{{ url('/catalog') }}" type="button" class="btn btn-light">
                 <i class="fas fa-arrow-left"></i>Volver al listado
               </a>
           </div>

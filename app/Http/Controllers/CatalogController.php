@@ -41,7 +41,7 @@ class CatalogController extends BaseController {
 
         $pelicula->save();
 
-        Alert::success('Success', 'La película se ha guardado correctamente.');
+        Alert::success('Película Guardada', 'La película se ha guardado correctamente.');
 
         return redirect('/catalog');
     }
@@ -70,8 +70,43 @@ class CatalogController extends BaseController {
 
         $pelicula->save();
 
-        Alert::success('Success', 'La película se ha modificado correctamente.');
+        Alert::success('Película Modificada', 'La película se ha modificado correctamente.');
 
         return redirect('/catalog/show/'.$id);
+    }
+
+    public function putRent($id) {
+        $pelicula = Movie::findOrFail($id);
+        $pelicula->rented = true;
+        $pelicula->save();
+
+        Alert::success('Película Rentada', 'La película se ha rentado correctamente.');
+
+        return redirect('/catalog/show/'.$id);
+    }
+
+    public function putReturn($id) {
+        $pelicula = Movie::findOrFail($id);
+        $pelicula->rented = false;
+        $pelicula->save();
+
+        Alert::success('Película Devuelta', 'La película se ha devuelto correctamente.');
+
+        return redirect('/catalog/show/'.$id);
+    }
+
+    public function deleteMovie($id) {
+        /*En el método deleteMovie también obtendremos el registro 
+        de la película pero tendremos que llamar al método delete() 
+        de la misma, una vez hecho esto añadiremos la notificación 
+        y realizaremos una redirección al listado general de películas.*/
+
+        $pelicula = Movie::findOrFail($id);
+
+        $pelicula->delete();
+
+        Alert::success('Película Eliminada', 'La película se ha eliminado correctamente.');
+
+        return redirect('/catalog');
     }
 }

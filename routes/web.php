@@ -27,6 +27,7 @@ Route::get('/logout', function() {
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/catalog', [CatalogController::class, 'getIndex']);
+
     Route::get('/catalog/show/{id}', [CatalogController::class, 'getShow']);
 
     Route::get('/catalog/create', [CatalogController::class, 'getCreate']);
@@ -34,6 +35,12 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/catalog/edit/{id}', [CatalogController::class, 'getEdit']);
     Route::put('/catalog/edit/{id}', [CatalogController::class, 'putEdit']);
+
+    Route::put('/catalog/rent/{id}', [CatalogController::class, 'putRent']);
+
+    Route::put('/catalog/return/{id}', [CatalogController::class, 'putReturn']);
+
+    Route::delete('/catalog/delete/{id}', [CatalogController::class, 'deleteMovie']);
 });
 
 Auth::routes();
