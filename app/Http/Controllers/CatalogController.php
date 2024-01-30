@@ -27,23 +27,19 @@ class CatalogController extends BaseController {
         $pelicula->year = $request->input('year');
         $pelicula->director = $request->input('director');
 
-        // TODO: CHECK
         if ($request->hasFile('poster') && $request->file('poster')->isValid()) {
             $posterPath = $request->file('poster')->store('');
             $pelicula->poster = $posterPath;
-
-            // $request->file('photo')->store($destinationPath);  
-            // $request->file('photo')->storeAs($destinationPath, $fileName);
         }
-        
-        $pelicula->rented = $request->input('rented', false); 
+
+        $pelicula->rented = false; 
         $pelicula->synopsis = $request->input('synopsis');
 
         $pelicula->save();
 
         Alert::success('Película Guardada', 'La película se ha guardado correctamente.');
 
-        return redirect('/catalog');
+        return redirect()->action([CatalogController::class, 'getIndex']);
     }
 
     public function getEdit($id) {
@@ -57,13 +53,9 @@ class CatalogController extends BaseController {
         $pelicula->year = $request->input('year');
         $pelicula->director = $request->input('director');
 
-        // TODO: CHECK
         if ($request->hasFile('poster') && $request->file('poster')->isValid()) {
             $posterPath = $request->file('poster')->store('');
             $pelicula->poster = $posterPath;
-
-            // $request->file('photo')->store($destinationPath);  
-            // $request->file('photo')->storeAs($destinationPath, $fileName);
         }
 
         $pelicula->synopsis = $request->input('synopsis');
@@ -72,7 +64,7 @@ class CatalogController extends BaseController {
 
         Alert::success('Película Modificada', 'La película se ha modificado correctamente.');
 
-        return redirect('/catalog/show/'.$id);
+        return redirect()->action([CatalogController::class, 'getShow'], [$id]);
     }
 
     public function putRent($id) {
@@ -82,7 +74,7 @@ class CatalogController extends BaseController {
 
         Alert::success('Película Rentada', 'La película se ha rentado correctamente.');
 
-        return redirect('/catalog/show/'.$id);
+        return redirect()->action([CatalogController::class, 'getShow'], [$id]);
     }
 
     public function putReturn($id) {
@@ -92,21 +84,15 @@ class CatalogController extends BaseController {
 
         Alert::success('Película Devuelta', 'La película se ha devuelto correctamente.');
 
-        return redirect('/catalog/show/'.$id);
+        return redirect()->action([CatalogController::class, 'getShow'], [$id]);
     }
 
     public function deleteMovie($id) {
-        /*En el método deleteMovie también obtendremos el registro 
-        de la película pero tendremos que llamar al método delete() 
-        de la misma, una vez hecho esto añadiremos la notificación 
-        y realizaremos una redirección al listado general de películas.*/
-
         $pelicula = Movie::findOrFail($id);
-
         $pelicula->delete();
 
         Alert::success('Película Eliminada', 'La película se ha eliminado correctamente.');
 
-        return redirect('/catalog');
+        return redirect()->action([CatalogController::class, 'getIndex']);
     }
 }

@@ -15,15 +15,7 @@ use App\Http\Controllers\CatalogController;
 |
 */
 
-Route::get('/', [HomeController::class, 'getHome']);
-
-Route::get('/login', function() {   
-    return view('login'); 
-});
-
-Route::get('/logout', function() {
-    return 'Logout usuario';
-});
+Route::get('/', [HomeController::class, 'index']);
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/catalog', [CatalogController::class, 'getIndex']);
@@ -36,11 +28,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/catalog/edit/{id}', [CatalogController::class, 'getEdit']);
     Route::put('/catalog/edit/{id}', [CatalogController::class, 'putEdit']);
 
-    Route::put('/catalog/rent/{id}', [CatalogController::class, 'putRent']);
+    Route::put('/catalog/rent/{id}', [CatalogController::class, 'putRent']) ->name('putRent');
 
-    Route::put('/catalog/return/{id}', [CatalogController::class, 'putReturn']);
+    Route::put('/catalog/return/{id}', [CatalogController::class, 'putReturn']) ->name('putReturn');
 
-    Route::delete('/catalog/delete/{id}', [CatalogController::class, 'deleteMovie']);
+    Route::delete('/catalog/delete/{id}', [CatalogController::class, 'deleteMovie']) ->name('deleteMovie');
 });
 
 Auth::routes();

@@ -28,7 +28,7 @@
 
               @if($pelicula->rented)
                 <paragraph><b>Estado:</b> Película actualmente alquilada<br><br></paragraph>
-                <form action="{{action([App\Http\Controllers\CatalogController::class, 'putReturn'], ['id' => $pelicula->id])}}" 
+                <form action="{{route('putReturn', ['id' => $pelicula->id])}}" 
                   method="POST" style="display:inline">
                   @method('PUT')
                   @csrf
@@ -39,7 +39,7 @@
               
               @else
                 <paragraph><b>Estado:</b> Película disponible<br><br></paragraph>
-                <form action="{{action([App\Http\Controllers\CatalogController::class, 'putRent'], ['id' => $pelicula->id])}}" 
+                <form action="{{route('putRent', ['id' => $pelicula->id])}}" 
                   method="POST" style="display:inline">
                   @method('PUT')
                   @csrf
@@ -52,7 +52,7 @@
               <a href="{{ url('/catalog/edit/' . $pelicula->id ) }}" type="button" class="btn btn-warning">
                 <i class="bi bi-pencil"></i>Editar película
               </a>
-              <form action="{{action([App\Http\Controllers\CatalogController::class, 'deleteMovie'], ['id' => $pelicula->id])}}" 
+              <form action="{{route('deleteMovie', ['id' => $pelicula->id])}}" 
                   method="POST" style="display:inline">
                   @method('DELETE')
                   @csrf
