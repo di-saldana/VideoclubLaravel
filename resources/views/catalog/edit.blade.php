@@ -20,33 +20,33 @@
                 Modificar película
                 </div>
                 <div class="card-body" style="padding:30px">
-                    <form method="PUT" action = "{{action([App\Http\Controllers\CatalogController::class, 'getCreate'])}}"  enctype="multipart/form-data">
+                  <form method="POST" action="{{ action([App\Http\Controllers\CatalogController::class, 'putEdit'], ['id' => $pelicula->id]) }}" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
 
                     <div class="form-group">
                       <label for="title">Título</label>
-                      <input type="text" name="title" id="title" class="form-control">
+                      <input type="text" name="title" id="title" class="form-control" value="{{$pelicula->title}}">
                     </div>
 
                     <div class="form-group">
                       <label for="year">Año</label>
-                      <input type="text" name="year" id="year" class="form-control">
+                      <input type="text" name="year" id="year" class="form-control" value="{{$pelicula->year}}">
                     </div>
 
                     <div class="form-group">
                       <label for="director">Director</label>
-                      <input type="text" name="director" id="director" class="form-control">
+                      <input type="text" name="director" id="director" class="form-control" value="{{$pelicula->director}}">
                     </div>
 
                     <div class="form-group">
                       <label for="poster">Poster</label>
-                      <input type="file" name="poster" id="poster" class="form-control">
+                      <input type="file" name="poster" id="poster" class="form-control" value="{{$pelicula->poster}}" accept="image/png, image/jpeg">
                     </div>
 
                     <div class="form-group">
                       <label for="synopsis">Resumen</label>
-                      <textarea type="textarea" name="synopsis" id="synopsis" class="form-control" rows="3"></textarea>
+                      <textarea type="textarea" name="synopsis" id="synopsis" class="form-control" rows="3" value="{{$pelicula->synopsis}}"></textarea>
                     </div>
 
                     <div class="form-group text-center">

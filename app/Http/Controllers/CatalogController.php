@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Routing\Controller as BaseController;
+use Illuminate\Http\Request;
 use App\Models\Movie;
 
 class CatalogController extends BaseController {
@@ -18,7 +19,52 @@ class CatalogController extends BaseController {
         return view('catalog.create');
     }
 
+    public function postCreate(Request $request) {
+        $pelicula = new Movie();
+
+        $pelicula->title = $request->input('title');
+        $pelicula->year = $request->input('year');
+        $pelicula->director = $request->input('director');
+
+        if ($request->hasFile('poster') && $request->file('poster')->isValid()) {
+            $posterPath = $request->file('poster')->store('');
+            $pelicula->poster = $posterPath;
+
+            // $request->file('photo')->store($destinationPath);  
+            // $request->file('photo')->storeAs($destinationPath, $fileName);
+        }
+        
+        $pelicula->rented = $request->input('rented', false); 
+        $pelicula->synopsis = $request->input('synopsis');
+
+        $pelicula->save();
+
+        return redirect('/catalog');
+    }
+
     public function getEdit($id) {
-        return view('catalog.edit', ['id' => Movie::findOrFail($id)]);
+        return view('catalog.edit', ['pelicula' => Movie::findOrFail($id)]);
+    }
+
+    public function putEdit(Request $request, $id) {
+        $pelicula = Movie::findOrFail($id);
+
+        $pelicula->title = $request->input('title');
+        $pelicula->year = $request->input('year');
+        $pelicula->director = $request->input('director');
+
+        if ($request->hasFile('poster') && $request->file('poster')->isValid()) {
+            $posterPath = $request->file('poster')->store('');
+            $pelicula->poster = $posterPath;
+
+            // $request->file('photo')->store($destinationPath);  
+            // $request->file('photo')->storeAs($destinationPath, $fileName);
+        }
+
+        $pelicula->synopsis = $request->input('synopsis');
+
+        $pelicula->save();
+
+        return redirect('/catalog/show/'.$id);
     }
 }

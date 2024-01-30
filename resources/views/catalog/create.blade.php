@@ -54,8 +54,6 @@
                           Añadir película
                       </button>
                     </div>
-
-                  {{-- TODO: Cerrar formulario --}}
                   </form>
                 </div>
               </div>

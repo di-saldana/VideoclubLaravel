@@ -25,19 +25,15 @@ Route::get('/logout', function() {
     return 'Logout usuario';
 });
 
-// Route::get('/catalog', [CatalogController::class, 'getIndex']);
-
-// Route::get('/catalog/show/{id}', [CatalogController::class, 'getShow']);
-
-// Route::get('/catalog/create', [CatalogController::class, 'getCreate']);
-
-// Route::get('/catalog/edit/{id}', [CatalogController::class, 'getEdit']);
-
 Route::middleware(['auth'])->group(function () {
     Route::get('/catalog', [CatalogController::class, 'getIndex']);
     Route::get('/catalog/show/{id}', [CatalogController::class, 'getShow']);
+
     Route::get('/catalog/create', [CatalogController::class, 'getCreate']);
+    Route::post('/catalog/create', [CatalogController::class, 'postCreate']);
+
     Route::get('/catalog/edit/{id}', [CatalogController::class, 'getEdit']);
+    Route::put('/catalog/edit/{id}', [CatalogController::class, 'putEdit']);
 });
 
 Auth::routes();
