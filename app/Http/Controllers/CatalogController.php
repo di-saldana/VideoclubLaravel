@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Routing\Controller as BaseController;
 use Illuminate\Http\Request;
 use App\Models\Movie;
+use Bpocallaghan\Alert\Facades\Alert;
 
 class CatalogController extends BaseController {
     public function getIndex() {
@@ -26,6 +27,7 @@ class CatalogController extends BaseController {
         $pelicula->year = $request->input('year');
         $pelicula->director = $request->input('director');
 
+        // TODO: CHECK
         if ($request->hasFile('poster') && $request->file('poster')->isValid()) {
             $posterPath = $request->file('poster')->store('');
             $pelicula->poster = $posterPath;
@@ -38,6 +40,8 @@ class CatalogController extends BaseController {
         $pelicula->synopsis = $request->input('synopsis');
 
         $pelicula->save();
+
+        Alert::success('Success', 'La película se ha guardado correctamente.');
 
         return redirect('/catalog');
     }
@@ -53,6 +57,7 @@ class CatalogController extends BaseController {
         $pelicula->year = $request->input('year');
         $pelicula->director = $request->input('director');
 
+        // TODO: CHECK
         if ($request->hasFile('poster') && $request->file('poster')->isValid()) {
             $posterPath = $request->file('poster')->store('');
             $pelicula->poster = $posterPath;
@@ -64,6 +69,8 @@ class CatalogController extends BaseController {
         $pelicula->synopsis = $request->input('synopsis');
 
         $pelicula->save();
+
+        Alert::success('Success', 'La película se ha modificado correctamente.');
 
         return redirect('/catalog/show/'.$id);
     }

@@ -50,6 +50,7 @@
                     </div>
 
                     <div class="form-group text-center">
+                      @include('alert::alert')
                       <button type="submit" class="btn btn-primary" style="padding:8px 100px;margin-top:25px;">
                           Modificar película
                       </button>
